@@ -87,4 +87,38 @@ const game = ((board, Player, document) => {
   const players = getInitialPlayerInfo(document);
   if (!players.playerO || !players.playerX)
     throw new Error("Invalid number of players");
+
+  // PlayerX is assumed to have the first turn to play
+  let activePlayer = players.playerX;
+
+  const updateActivePlayer = () => {
+    activePlayer =
+      activePlayer === players.playerX ? players.playerO : players.playerX;
+  };
+
+  const placeMarker = (row, column) => {
+    try {
+      board.setMarkerOnBoard(activePlayer.getMarker(), row, column);
+    } catch (err) {
+      console.error(`Unable to place the marker on board: ${err}`);
+    }
+  };
+
+  const start = () => {
+    board.resetBoard();
+
+    console.log(board.getBoardInfo());
+
+    for (let i = 0; i < 1; i++) {
+      for (let j = 0; j < 1; j++) {
+        placeMarker(i, j);
+        updateActivePlayer();
+      }
+    }
+    console.log(board.getBoardInfo());
+  };
+
+  return { start };
 })(board, Player, document);
+
+game.start();
