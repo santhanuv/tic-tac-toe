@@ -66,3 +66,18 @@ const Player = (name, board, marker) => {
 
   return { getMarker, getName, incrScore, getScore };
 };
+
+const game = ((board, Player, document) => {
+  const players = getInitialPlayerInfo(document);
+  if (players.length !== 2) throw new Error("Invalid number of players");
+
+  const getInitialPlayerInfo = () => {
+    /* Get all the initial player info from the DOM */
+
+    // Temporarily returning mock data
+    return {
+      playerX: Player("Player One", board, board.getMarkers().X),
+      playerO: Player("Player Two", board, board.getMarkers().O),
+    };
+  };
+})(board, Player, document);
