@@ -38,7 +38,11 @@ const board = (() => {
   // Returns the marker at a given cell.
   const getCell = (row, column) => board[row][column];
 
-  return { setMarkerOnBoard, getBoardInfo, getMarkers, getCell };
+  const resetBoard = () => {
+    board.fill([null, null, null]);
+  };
+
+  return { setMarkerOnBoard, getBoardInfo, getMarkers, getCell, resetBoard };
 })();
 
 const Player = (name, board, marker) => {
