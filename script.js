@@ -1,6 +1,6 @@
 const board = (() => {
   const markers = {
-    X: Symbol("X"),
+    X: Symbol("X"), // Symbol creates a unique value
     O: Symbol("O"),
   };
 
@@ -10,6 +10,7 @@ const board = (() => {
     [null, null, null],
   ];
 
+  /* Returns a clone of the board array, used by functions like getBoardInfo, to prevent outside code from modifying board directly(through the returned reference).   */
   const cloneBoard = () => board.map((row) => [...row]);
 
   const setMarkerOnBoard = (marker, row, column) => {
@@ -31,9 +32,37 @@ const board = (() => {
 
   const getBoardInfo = () => cloneBoard();
 
+  // Returns all the markers that can be used in board. (X and O)
   const getMarkers = () => Object.assign({}, markers);
 
+  // Returns the marker at a given cell.
   const getCell = (row, column) => board[row][column];
 
   return { setMarkerOnBoard, getBoardInfo, getMarkers, getCell };
 })();
+
+const Player = (name, board, marker) => {
+  /* Board is taken as a parameter to avoid making Player dependent on 
+     the global variable board. */
+
+  // Checks if the given marker is valid to be played on the given board
+  if (name === undefined) throw new Error("Invalid name");
+
+  if (board === undefined || board === null) throw new Error("Invalid board");
+
+  const validMarkers = board.getMarkers();
+  if (marker !== validMarkers.X && marker !== validMarkers.O)
+    throw new Error(`Invalid marker: ${marker}`);
+
+  let score = 0;
+
+  const getMarker = () => marker;
+
+  const getName = () => name;
+
+  const incrScore = () => ++score;
+
+  const getScore = () => score;
+
+  return { getMarker, getName, incrScore, getScore };
+};
