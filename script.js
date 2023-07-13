@@ -68,7 +68,9 @@ const Player = (name, board, marker) => {
 
   const getScore = () => score;
 
-  return { getMarker, getName, incrScore, getScore };
+  const getPlayerInfo = () => ({ name, marker, score });
+
+  return { getMarker, getName, incrScore, getScore, getPlayerInfo };
 };
 
 const game = ((board, Player, document) => {
