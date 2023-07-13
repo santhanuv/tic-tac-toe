@@ -39,7 +39,7 @@ const board = (() => {
   const getCell = (row, column) => board[row][column];
 
   const resetBoard = () => {
-    board.fill([null, null, null]);
+    board.forEach((row) => row.fill(null));
   };
 
   return { setMarkerOnBoard, getBoardInfo, getMarkers, getCell, resetBoard };
@@ -103,22 +103,4 @@ const game = ((board, Player, document) => {
       console.error(`Unable to place the marker on board: ${err}`);
     }
   };
-
-  const start = () => {
-    board.resetBoard();
-
-    console.log(board.getBoardInfo());
-
-    for (let i = 0; i < 1; i++) {
-      for (let j = 0; j < 1; j++) {
-        placeMarker(i, j);
-        updateActivePlayer();
-      }
-    }
-    console.log(board.getBoardInfo());
-  };
-
-  return { start };
 })(board, Player, document);
-
-game.start();
