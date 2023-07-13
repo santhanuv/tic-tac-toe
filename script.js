@@ -74,9 +74,6 @@ const Player = (name, board, marker) => {
 };
 
 const game = ((board, Player, document) => {
-  const players = getInitialPlayerInfo(document);
-  if (players.length !== 2) throw new Error("Invalid number of players");
-
   const getInitialPlayerInfo = () => {
     /* Get all the initial player info from the DOM */
 
@@ -86,4 +83,8 @@ const game = ((board, Player, document) => {
       playerO: Player("Player Two", board, board.getMarkers().O),
     };
   };
+
+  const players = getInitialPlayerInfo(document);
+  if (!players.playerO || !players.playerX)
+    throw new Error("Invalid number of players");
 })(board, Player, document);
