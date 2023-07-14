@@ -30,7 +30,15 @@ const board = (() => {
     return cloneBoard();
   };
 
-  const getBoardInfo = () => cloneBoard();
+  const getBoardInfo = () => {
+    const board = cloneBoard();
+    let emptyCells = 0;
+    board.forEach(
+      (row) => (emptyCells += row.filter((column) => column === null).length)
+    );
+
+    return { board, emptyCells };
+  };
 
   // Returns all the markers that can be used in board. (X and O)
   const getMarkers = () => Object.assign({}, markers);
@@ -110,9 +118,10 @@ const game = ((board, Player, document) => {
     }
   };
 
-  // Returns the marker of the player who won or null
+  // Returns the marker of the player who won or null or 1 on draw
   const checkStatus = () => {
-    const currBoard = board.getBoardInfo();
+    const { board: currBoard, emptyCells } = board.getBoardInfo();
+    if (emptyCells === 0) return 1;
     let gameOver = false;
 
     // row check
