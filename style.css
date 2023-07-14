@@ -118,3 +118,48 @@ body {
 .cell:nth-last-child(3) {
   border-radius: 0 0 0 10px;
 }
+
+.player-scoreboard {
+  padding: 0 var(--spacer-xl);
+}
+
+.player-scoreboard table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  padding: var(--spacer-xs) 0;
+  color: var(--primary-clr);
+}
+
+.player-scoreboard table caption {
+  margin-bottom: var(--spacer-md);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-sb);
+}
+
+.player-scoreboard table th,
+td {
+  font-size: var(--fs-md);
+}
+
+.player-scoreboard table th {
+  padding: var(--spacer-md) var(--spacer-lg) var(--spacer-normal)
+    var(--spacer-lg);
+  font-size: var(--fs-md);
+  border-bottom: 5px solid;
+}
+
+.player-scoreboard table td {
+  text-align: center;
+  padding: var(--spacer-normal) var(--spacer-lg) var(--spacer-lg)
+    var(--spacer-lg);
+  font-weight: var(--fw-sb);
+  font-size: var(--fs-lg);
+}
+
+.player-scoreboard tr > *:first-child {
+  border-right: 5px solid;
+}
+
+.player-scoreboard table td.score {
+  font-size: var(--fs-xl);
+}

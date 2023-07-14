@@ -11,6 +11,21 @@
     <main id="main-container">
       <h1 class="main-header">Tic Tac Toe</h1>
       <div id="playground">
+        <div class="player-scoreboard" #id="playerX">
+          <table>
+            <caption>
+              Player One
+            </caption>
+            <tr>
+              <th>Marker</th>
+              <th>Score</th>
+            </tr>
+            <tr>
+              <td>X</td>
+              <td #id="x-score" class="score">0</td>
+            </tr>
+          </table>
+        </div>
         <div class="board-container">
           <button type="button" class="main-btn">Start</button>
           <div id="board">
@@ -24,6 +39,21 @@
             <div class="cell"></div>
             <div class="cell"></div>
           </div>
+        </div>
+        <div class="player-scoreboard" #id="playerO">
+          <table>
+            <caption>
+              Player Two
+            </caption>
+            <tr>
+              <th>Marker</th>
+              <th>Score</th>
+            </tr>
+            <tr>
+              <td>O</td>
+              <td #id="x-score" class="score">0</td>
+            </tr>
+          </table>
         </div>
       </div>
     </main>
