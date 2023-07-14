@@ -159,5 +159,3 @@ const game = ((board, Player, document) => {
     return null;
   };
 })(board, Player, document);
-
-game.start();
