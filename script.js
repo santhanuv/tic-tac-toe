@@ -90,6 +90,7 @@ const game = ((board, Player, document) => {
 
   // PlayerX is assumed to have the first turn to play
   let activePlayer = players.playerX;
+  const lastUpdatedCell = { row: -1, column: -1 };
 
   const updateActivePlayer = () => {
     activePlayer =
@@ -99,8 +100,15 @@ const game = ((board, Player, document) => {
   const placeMarker = (row, column) => {
     try {
       board.setMarkerOnBoard(activePlayer.getMarker(), row, column);
+      lastUpdatedCell.row = row;
+      lastUpdatedCell.column = column;
     } catch (err) {
+      lastUpdatedCell.row = -1;
+      lastUpdatedCell.column = -1;
       console.error(`Unable to place the marker on board: ${err}`);
+      throw err;
     }
   };
 })(board, Player, document);
+
+game.start();
