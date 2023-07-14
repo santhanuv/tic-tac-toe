@@ -158,6 +158,55 @@ const game = ((board, Player, document) => {
 
     return null;
   };
+
+  const start = () => {
+    alert("Open your console to play!");
+    board.resetBoard();
+
+    let gameOver = false;
+    let winnerMarker = null;
+
+    console.log(board.getBoardInfo().board);
+
+    // Input row and column
+    while (!gameOver) {
+      let row = -1,
+        column = -1;
+      while (true) {
+        const rawString = prompt(
+          `${activePlayer.getName()}: Enter the row and column(row column):`
+        );
+        [row, column] = rawString.split(" ").map((value) => parseInt(value));
+        console.log(row, column);
+        if (row < 3 && row > -1 && column < 3 && column > -1) break;
+        else {
+          alert("Sorry, Row and column should be between 0 and 2.");
+        }
+      }
+
+      try {
+        placeMarker(row, column);
+      } catch (err) {
+        continue;
+      }
+      winnerMarker = checkStatus();
+
+      if (winnerMarker) gameOver = true;
+
+      console.log(board.getBoardInfo().board);
+      updateActivePlayer();
+    }
+
+    if (winnerMarker === players.playerX.getMarker()) {
+      alert(`${players.playerX.getName()} Won!`);
+    } else if (winnerMarker === players.playerO.getMarker()) {
+      alert(`${players.playerO.getName()} Won!`);
+    } else {
+      alert("Game Over: Draw!");
+    }
+  };
+
+  return { start };
 })(board, Player, document);
 
 game.start();
