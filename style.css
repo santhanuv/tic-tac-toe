@@ -13,6 +13,25 @@
   --tertiary-clr: #facfad;
 
   --ff-primary: "Rubik";
+
+  --fs-normal: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.5rem;
+  --fs-xl: 2rem;
+  --fs-xxl: 3rem;
+
+  --fw-normal: 400;
+  --fw-md: 500;
+  --fw-sb: 600;
+  --fw-b: 700;
+
+  --spacer-xxl: 8rem;
+  --spacer-xl: 6rem;
+  --spacer-lg: 3rem;
+  --spacer-md: 2rem;
+  --spacer-normal: 1rem;
+  --spacer-xs: 0.5rem;
+  --spacer-xxs: 0.4rem;
 }
 
 body {
@@ -23,11 +42,45 @@ body {
 
 #main-container {
   min-height: 100vh;
-  padding-top: 6rem;
+  padding-top: var(--spacer-lg);
 }
 
 .main-header {
   color: var(--primary-clr);
   text-align: center;
-  font-size: 3rem;
+  font-size: var(--fs-xxl);
+}
+
+#playground {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacer-lg);
+}
+
+.board-container {
+  text-align: center;
+}
+
+.main-btn {
+  padding: var(--spacer-xs) var(--spacer-md);
+  font-family: var(--ff-primary);
+  text-transform: uppercase;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-md);
+  background-color: var(--primary-clr);
+  color: var(--bg-clr);
+  border: 0px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.main-btn:hover {
+  background-color: var(--secondary-clr);
+}
+
+#board {
+  width: 600px;
+  height: 600px;
+  background-color: #f5ac72;
+  margin-top: var(--spacer-md);
 }
