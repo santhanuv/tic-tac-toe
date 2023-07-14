@@ -20,3 +20,14 @@ body {
   font-family: sans-serif;
   font-family: var(--ff-primary);
 }
+
+#main-container {
+  min-height: 100vh;
+  padding-top: 6rem;
+}
+
+.main-header {
+  color: var(--primary-clr);
+  text-align: center;
+  font-size: 3rem;
+}
