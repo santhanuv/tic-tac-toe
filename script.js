@@ -109,6 +109,46 @@ const game = ((board, Player, document) => {
       throw err;
     }
   };
+
+  // Returns the marker of the player who won or null
+  const checkStatus = () => {
+    const currBoard = board.getBoardInfo();
+    let gameOver = false;
+
+    // row check
+    gameOver = currBoard[lastUpdatedCell.row].every(
+      (column) => column === currBoard[lastUpdatedCell.row][0]
+    );
+    if (gameOver) return currBoard[lastUpdatedCell.row][0];
+
+    // column check
+    gameOver = true;
+    for (let i = 1; i < 3; i++) {
+      if (
+        currBoard[i][lastUpdatedCell.column] !==
+        currBoard[0][lastUpdatedCell.column]
+      ) {
+        gameOver = false;
+      }
+    }
+    if (gameOver) return currBoard[0][lastUpdatedCell.column];
+
+    // Diagonal 1
+    gameOver = true;
+    for (let n = 1, i = 0, j = 0; n < 3; n++) {
+      if (currBoard[++i][++j] !== currBoard[0][0]) gameOver = false;
+    }
+    if (gameOver) return currBoard[0][0];
+
+    // Diagonal 2
+    gameOver = true;
+    for (let n = 1, i = 0, j = 2; n < 3; n++) {
+      if (currBoard[++i][--j] !== currBoard[0][2]) gameOver = false;
+    }
+    if (gameOver) return currBoard[0][2];
+
+    return null;
+  };
 })(board, Player, document);
 
 game.start();
