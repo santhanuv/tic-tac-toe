@@ -92,6 +92,9 @@ body {
 .cell {
   cursor: pointer;
   background-color: var(--tertiary-clr);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cell:hover {
@@ -162,4 +165,31 @@ td {
 
 .player-scoreboard table td.score {
   font-size: var(--fs-xl);
+}
+
+div.x-marker-contain {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  transform: rotate(45deg);
+}
+
+div.cross {
+  position: absolute;
+  background-color: var(--bg-clr);
+  transform: translate(-50%, -50%);
+}
+
+div#cross-left {
+  width: 5px;
+  height: 100px;
+  top: 50px;
+  left: 50px;
+}
+
+div#cross-right {
+  width: 100px;
+  height: 5px;
+  top: 50px;
+  left: 50px;
 }

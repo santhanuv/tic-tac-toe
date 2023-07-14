@@ -81,6 +81,23 @@ const Player = (name, board, marker) => {
   return { getMarker, getName, incrScore, getScore, getPlayerInfo };
 };
 
+const uiManager = ((document) => {
+  // X Marker
+  const xMarkerContainer = document.createElement("div");
+  xMarkerContainer.classList.add("x-marker-contain");
+
+  const xLeftLeg = document.createElement("div");
+  const xRightLeg = document.createElement("div");
+
+  xLeftLeg.classList.add("cross");
+  xLeftLeg.setAttribute("id", "cross-left");
+  xRightLeg.classList.add("cross");
+  xRightLeg.setAttribute("id", "cross-right");
+
+  xMarkerContainer.appendChild(xLeftLeg);
+  xMarkerContainer.appendChild(xRightLeg);
+})(document);
+
 const game = ((board, Player, document) => {
   const getInitialPlayerInfo = () => {
     /* Get all the initial player info from the DOM */
