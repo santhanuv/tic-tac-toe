@@ -100,6 +100,37 @@ const uiManager = ((document) => {
   // Circle
   const circle = document.createElement("div");
   circle.classList.add("circle");
+
+  const gridCells = document.getElementsByClassName("cell");
+
+  const placeXMarkerInGrid = (row, col) => {
+    const idx = 3 * row + col; // 3 is the number of col in a row
+    gridCells[idx].appendChild(xMarkerContainer);
+  };
+
+  const placeOMarkerInGrid = (row, col) => {
+    const idx = 3 * row + col;
+    gridCells[idx].appendChild(circle);
+  };
+
+  const addEventListenerToCells = (callback) => {
+    for (let i = 0; i < gridCells.length; i++) {
+      gridCells[i].addEventListener("click", callback);
+    }
+  };
+
+  const removeEventListenerFromCells = (callback) => {
+    for (let i = 0; i < gridCells.length; i++) {
+      gridCells[i].removeEventListener("click", callback);
+    }
+  };
+
+  return {
+    placeXMarkerInGrid,
+    placeOMarkerInGrid,
+    addEventListenerToCells,
+    removeEventListenerFromCells,
+  };
 })(document);
 
 const game = ((board, Player, uiManager) => {
