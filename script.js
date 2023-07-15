@@ -231,6 +231,11 @@ const game = ((board, Player, uiManager) => {
     return null;
   };
 
+  const resetGame = () => {
+    board.resetBoard();
+    uiManager.resetBoard();
+  };
+
   const endGame = (status) => {
     if (status === players.playerX.getMarker()) {
       console.log(`${players.playerX.getName()} won!!`);
@@ -241,44 +246,41 @@ const game = ((board, Player, uiManager) => {
     }
   };
 
-  const start = () => {
-    board.resetBoard();
-    uiManager.resetBoard();
+  // Main game logic is implemented as a callback function
+  const play = (e) => {
+    let status = null;
+    const row = parseInt(e.target.dataset.row);
+    const col = parseInt(e.target.dataset.col);
+    try {
+      placeMarker(row, col);
 
-    // Main game logic is implemented as a callback function
-    const play = (e) => {
-      let status = null;
-      const row = parseInt(e.target.dataset.row);
-      const col = parseInt(e.target.dataset.col);
-      try {
-        placeMarker(row, col);
-
-        if (activePlayer === players.playerX) {
-          uiManager.placeXMarkerInGrid(row, col);
-        } else {
-          uiManager.placeOMarkerInGrid(row, col);
-        }
-
-        if (
-          lastUpdatedCell.row !== -1 &&
-          lastUpdatedCell.column !== -1 &&
-          (status = checkStatus())
-        ) {
-          uiManager.removeEventListenerFromCells(play);
-          return endGame(status);
-        }
-
-        updateActivePlayer();
-      } catch (err) {
-        console.log(`UI Error: ${err}`);
+      if (activePlayer === players.playerX) {
+        uiManager.placeXMarkerInGrid(row, col);
+      } else {
+        uiManager.placeOMarkerInGrid(row, col);
       }
-      return status;
-    };
 
-    uiManager.addEventListenerToCells(play);
+      if (
+        lastUpdatedCell.row !== -1 &&
+        lastUpdatedCell.column !== -1 &&
+        (status = checkStatus())
+      ) {
+        resetGame();
+        return endGame(status);
+      }
+
+      updateActivePlayer();
+    } catch (err) {
+      console.log(`UI Error: ${err}`);
+    }
+    return status;
   };
 
-  uiManager.addEventListenerToMainBtn(() => start());
+  uiManager.addEventListenerToCells(play);
+  uiManager.addEventListenerToMainBtn(() => {
+    resetGame();
 
-  return { start };
+    // After the game ends the event listner is removed to stop the player from playing
+    uiManager.addEventListenerToCells(play);
+  });
 })(board, Player, uiManager);
