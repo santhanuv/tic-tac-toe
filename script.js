@@ -85,6 +85,14 @@ const uiManager = ((document, markers) => {
   const mainButton = document.getElementById("main-btn");
   const playerXCaption = document.querySelector("#player-x caption");
   const playerOCaption = document.querySelector("#player-o caption");
+  const modalWrapper = document.getElementsByClassName("modal-wrapper")[0];
+  const modalText = document.querySelector(".modal h3");
+
+  // Close modal when clicked out the modal
+  modalWrapper.addEventListener("click", (e) => {
+    if (e.target.classList.contains("modal-wrapper"))
+      modalWrapper.classList.add("hide");
+  });
 
   // X Marker
   const xMarkerContainer = document.createElement("div");
@@ -157,6 +165,15 @@ const uiManager = ((document, markers) => {
     mainButton.addEventListener("click", callback);
   };
 
+  const updateWinner = (text) => {
+    modalText.textContent = text;
+    modalWrapper.classList.remove("hide");
+
+    setTimeout(() => {
+      modalWrapper.classList.add("hide");
+    }, 2000);
+  };
+
   return {
     placeXMarkerInGrid,
     placeOMarkerInGrid,
@@ -167,6 +184,7 @@ const uiManager = ((document, markers) => {
     resetBoard,
     resetActivePlayer,
     updateActivePlayer,
+    updateWinner,
   };
 })(document, board.getMarkers());
 
@@ -260,11 +278,11 @@ const game = ((board, Player, uiManager) => {
 
   const endGame = (status) => {
     if (status === players.playerX.getMarker()) {
-      console.log(`${players.playerX.getName()} won!!`);
+      uiManager.updateWinner(`${players.playerX.getName()} won!!`);
     } else if (status === players.playerO.getMarker()) {
-      console.log(`${players.playerO.getName()} won!!`);
+      uiManager.updateWinner(`${players.playerO.getName()} won!!`);
     } else {
-      console.log("Draw!!");
+      uiManager.updateWinner(`Oh Noo!It's a Draw!`);
     }
   };
 

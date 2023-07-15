@@ -245,3 +245,38 @@ table caption.active-player::before {
     transform: scale(1);
   }
 }
+
+.modal-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  backdrop-filter: blur(0.25rem);
+}
+
+.modal {
+  width: 25%;
+  height: 25%;
+  background-color: var(--primary-clr);
+  margin-top: var(--spacer-xxl);
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid var(--bg-clr);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  animation: popup 0.2s ease-in;
+}
+
+.modal h3 {
+  font-size: var(--fs-lg);
+  color: var(--bg-clr);
+}
+
+.hide {
+  display: none;
+}
