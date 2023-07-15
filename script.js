@@ -193,7 +193,6 @@ const game = ((board, Player, uiManager) => {
   // Returns the marker of the player who won or null or 1 on draw
   const checkStatus = () => {
     const { board: currBoard, emptyCells } = board.getBoardInfo();
-    if (emptyCells === 0) return 1;
     let gameOver = false;
 
     // row check
@@ -227,6 +226,8 @@ const game = ((board, Player, uiManager) => {
       if (currBoard[++i][--j] !== currBoard[0][2]) gameOver = false;
     }
     if (gameOver) return currBoard[0][2];
+
+    if (emptyCells === 0) return 1;
 
     return null;
   };
