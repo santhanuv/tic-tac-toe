@@ -180,14 +180,14 @@ div.cross {
   transform: translate(-50%, -50%);
 }
 
-div#cross-left {
+div.cross-left {
   width: 5px;
   height: 100px;
   top: 50px;
   left: 50px;
 }
 
-div#cross-right {
+div.cross-right {
   width: 100px;
   height: 5px;
   top: 50px;

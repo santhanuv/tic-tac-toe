@@ -82,35 +82,35 @@ const Player = (name, board, marker) => {
 };
 
 const uiManager = ((document) => {
+  const mainButton = document.getElementById("main-btn");
+
   // X Marker
   const xMarkerContainer = document.createElement("div");
-  xMarkerContainer.classList.add("x-marker-contain");
+  xMarkerContainer.classList.add("x-marker-contain", "marker");
 
   const xLeftLeg = document.createElement("div");
   const xRightLeg = document.createElement("div");
 
-  xLeftLeg.classList.add("cross");
-  xLeftLeg.setAttribute("id", "cross-left");
-  xRightLeg.classList.add("cross");
-  xRightLeg.setAttribute("id", "cross-right");
+  xLeftLeg.classList.add("cross", "cross-left");
+  xRightLeg.classList.add("cross", "cross-right");
 
   xMarkerContainer.appendChild(xLeftLeg);
   xMarkerContainer.appendChild(xRightLeg);
 
   // Circle
   const circle = document.createElement("div");
-  circle.classList.add("circle");
+  circle.classList.add("circle", "marker");
 
   const gridCells = document.getElementsByClassName("cell");
 
   const placeXMarkerInGrid = (row, col) => {
     const idx = 3 * row + col; // 3 is the number of col in a row
-    gridCells[idx].appendChild(xMarkerContainer);
+    gridCells[idx].appendChild(xMarkerContainer.cloneNode(true));
   };
 
   const placeOMarkerInGrid = (row, col) => {
     const idx = 3 * row + col;
-    gridCells[idx].appendChild(circle);
+    gridCells[idx].appendChild(circle.cloneNode(true));
   };
 
   const addEventListenerToCells = (callback) => {
@@ -125,11 +125,31 @@ const uiManager = ((document) => {
     }
   };
 
+  const resetBoard = () => {
+    const markers = document.getElementsByClassName("marker");
+
+    for (let i = 0; i < gridCells.length; i++) {
+      if (gridCells[i].hasChildNodes())
+        gridCells[i].removeChild(gridCells[i].firstChild);
+    }
+  };
+
+  const addEventListenerToMainBtn = (callback) => {
+    mainButton.addEventListener("click", callback);
+  };
+
+  const removeEventListenerFromMainBtn = (callback) => {
+    mainButton.addEventListener("click", callback);
+  };
+
   return {
     placeXMarkerInGrid,
     placeOMarkerInGrid,
     addEventListenerToCells,
     removeEventListenerFromCells,
+    addEventListenerToMainBtn,
+    removeEventListenerFromMainBtn,
+    resetBoard,
   };
 })(document);
 
@@ -210,4 +230,55 @@ const game = ((board, Player, uiManager) => {
 
     return null;
   };
+
+  const endGame = (status) => {
+    if (status === players.playerX.getMarker()) {
+      console.log(`${players.playerX.getName()} won!!`);
+    } else if (status === players.playerO.getMarker()) {
+      console.log(`${players.playerO.getName()} won!!`);
+    } else {
+      console.log("Draw!!");
+    }
+  };
+
+  const start = () => {
+    board.resetBoard();
+    uiManager.resetBoard();
+
+    // Main game logic is implemented as a callback function
+    const play = (e) => {
+      let status = null;
+      const row = parseInt(e.target.dataset.row);
+      const col = parseInt(e.target.dataset.col);
+      try {
+        placeMarker(row, col);
+
+        if (activePlayer === players.playerX) {
+          uiManager.placeXMarkerInGrid(row, col);
+        } else {
+          uiManager.placeOMarkerInGrid(row, col);
+        }
+
+        if (
+          lastUpdatedCell.row !== -1 &&
+          lastUpdatedCell.column !== -1 &&
+          (status = checkStatus())
+        ) {
+          uiManager.removeEventListenerFromCells(play);
+          return endGame(status);
+        }
+
+        updateActivePlayer();
+      } catch (err) {
+        console.log(`UI Error: ${err}`);
+      }
+      return status;
+    };
+
+    uiManager.addEventListenerToCells(play);
+  };
+
+  uiManager.addEventListenerToMainBtn(() => start());
+
+  return { start };
 })(board, Player, uiManager);
