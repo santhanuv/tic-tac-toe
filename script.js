@@ -234,6 +234,9 @@ const game = ((board, Player, uiManager) => {
   const resetGame = () => {
     board.resetBoard();
     uiManager.resetBoard();
+    activePlayer = players.playerX;
+    lastUpdatedCell.row = -1;
+    lastUpdatedCell.column = -1;
   };
 
   const endGame = (status) => {
