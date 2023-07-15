@@ -81,8 +81,10 @@ const Player = (name, board, marker) => {
   return { getMarker, getName, incrScore, getScore, getPlayerInfo };
 };
 
-const uiManager = ((document) => {
+const uiManager = ((document, markers) => {
   const mainButton = document.getElementById("main-btn");
+  const playerXCaption = document.querySelector("#player-x caption");
+  const playerOCaption = document.querySelector("#player-o caption");
 
   // X Marker
   const xMarkerContainer = document.createElement("div");
@@ -102,6 +104,21 @@ const uiManager = ((document) => {
   circle.classList.add("circle", "marker");
 
   const gridCells = document.getElementsByClassName("cell");
+
+  const resetActivePlayer = () => {
+    playerXCaption.classList.add("active-player");
+    playerOCaption.classList.remove("active-player");
+  };
+
+  const updateActivePlayer = (marker) => {
+    if (marker === markers.X) {
+      playerXCaption.classList.add("active-player");
+      playerOCaption.classList.remove("active-player");
+    } else {
+      playerXCaption.classList.remove("active-player");
+      playerOCaption.classList.add("active-player");
+    }
+  };
 
   const placeXMarkerInGrid = (row, col) => {
     const idx = 3 * row + col; // 3 is the number of col in a row
@@ -126,8 +143,6 @@ const uiManager = ((document) => {
   };
 
   const resetBoard = () => {
-    const markers = document.getElementsByClassName("marker");
-
     for (let i = 0; i < gridCells.length; i++) {
       if (gridCells[i].hasChildNodes())
         gridCells[i].removeChild(gridCells[i].firstChild);
@@ -150,8 +165,10 @@ const uiManager = ((document) => {
     addEventListenerToMainBtn,
     removeEventListenerFromMainBtn,
     resetBoard,
+    resetActivePlayer,
+    updateActivePlayer,
   };
-})(document);
+})(document, board.getMarkers());
 
 const game = ((board, Player, uiManager) => {
   const getInitialPlayerInfo = () => {
@@ -238,6 +255,7 @@ const game = ((board, Player, uiManager) => {
     activePlayer = players.playerX;
     lastUpdatedCell.row = -1;
     lastUpdatedCell.column = -1;
+    uiManager.resetActivePlayer();
   };
 
   const endGame = (status) => {
@@ -274,6 +292,7 @@ const game = ((board, Player, uiManager) => {
       }
 
       updateActivePlayer();
+      uiManager.updateActivePlayer(activePlayer.getMarker());
     } catch (err) {
       console.log(`UI Error: ${err}`);
     }

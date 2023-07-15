@@ -221,3 +221,27 @@ div.cross-right {
     transform: scale(1);
   }
 }
+
+table caption.active-player {
+  font-size: var(--fs-xl);
+}
+
+table caption.active-player::before {
+  content: " ";
+  width: 1rem;
+  height: 1rem;
+  background-color: lightgreen;
+  display: inline-block;
+  border-radius: 50%;
+  animation: blink 1s linear 0.3s infinite alternate;
+}
+
+@keyframes blink {
+  from {
+    transform: scale(0.4);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
