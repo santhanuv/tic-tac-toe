@@ -193,3 +193,31 @@ div#cross-right {
   top: 50px;
   left: 50px;
 }
+
+.circle-parent {
+  width: 100px;
+  height: 100px;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background-color: none;
+  border-radius: 50%;
+  border: 5px solid var(--bg-clr);
+  animation: popup 0.3s ease-in;
+}
+
+@keyframes popup {
+  from {
+    transform: scale(0.7);
+  }
+
+  75% {
+    transform: scale(1.1);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}

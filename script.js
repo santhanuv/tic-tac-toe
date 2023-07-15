@@ -96,9 +96,13 @@ const uiManager = ((document) => {
 
   xMarkerContainer.appendChild(xLeftLeg);
   xMarkerContainer.appendChild(xRightLeg);
+
+  // Circle
+  const circle = document.createElement("div");
+  circle.classList.add("circle");
 })(document);
 
-const game = ((board, Player, document) => {
+const game = ((board, Player, uiManager) => {
   const getInitialPlayerInfo = () => {
     /* Get all the initial player info from the DOM */
 
@@ -109,7 +113,7 @@ const game = ((board, Player, document) => {
     };
   };
 
-  const players = getInitialPlayerInfo(document);
+  const players = getInitialPlayerInfo(uiManager);
   if (!players.playerO || !players.playerX)
     throw new Error("Invalid number of players");
 
@@ -175,4 +179,4 @@ const game = ((board, Player, document) => {
 
     return null;
   };
-})(board, Player, document);
+})(board, Player, uiManager);
