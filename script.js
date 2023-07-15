@@ -84,6 +84,8 @@ const Player = (name, board, marker) => {
 const uiManager = ((document, markers) => {
   const mainButton = document.getElementById("main-btn");
   const playerXCaption = document.querySelector("#player-x caption");
+  const playerXScore = document.querySelector("#player-x .score");
+  const playerOScore = document.querySelector("#player-o .score");
   const playerOCaption = document.querySelector("#player-o caption");
   const modalWrapper = document.getElementsByClassName("modal-wrapper")[0];
   const modalText = document.querySelector(".modal h3");
@@ -174,6 +176,14 @@ const uiManager = ((document, markers) => {
     }, 2000);
   };
 
+  const updateScore = (marker, score) => {
+    if (marker === markers.X) {
+      playerXScore.textContent = score;
+    } else {
+      playerOScore.textContent = score;
+    }
+  };
+
   return {
     placeXMarkerInGrid,
     placeOMarkerInGrid,
@@ -185,6 +195,7 @@ const uiManager = ((document, markers) => {
     resetActivePlayer,
     updateActivePlayer,
     updateWinner,
+    updateScore,
   };
 })(document, board.getMarkers());
 
@@ -279,10 +290,20 @@ const game = ((board, Player, uiManager) => {
   const endGame = (status) => {
     if (status === players.playerX.getMarker()) {
       uiManager.updateWinner(`${players.playerX.getName()} won!!`);
+      players.playerX.incrScore();
+      uiManager.updateScore(
+        players.playerX.getMarker(),
+        players.playerX.getScore()
+      );
     } else if (status === players.playerO.getMarker()) {
       uiManager.updateWinner(`${players.playerO.getName()} won!!`);
+      players.playerO.incrScore();
+      uiManager.updateScore(
+        players.playerO.getMarker(),
+        players.playerO.getScore()
+      );
     } else {
-      uiManager.updateWinner(`Oh Noo!It's a Draw!`);
+      uiManager.updateWinner(`Oh Noo! It's a Draw!`);
     }
   };
 
