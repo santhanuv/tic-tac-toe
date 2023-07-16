@@ -84,8 +84,10 @@ const Player = (name, board, marker) => {
 const uiManager = ((document, markers) => {
   const mainButton = document.getElementById("main-btn");
   const playerXCaption = document.querySelector("#player-x caption");
+  const playerXScoreMob = document.querySelector("#player-x-mob .score");
   const playerXScore = document.querySelector("#player-x .score");
   const playerOScore = document.querySelector("#player-o .score");
+  const playerOScoreMob = document.querySelector("#player-o-mob .score");
   const playerOCaption = document.querySelector("#player-o caption");
   const modalWrapper = document.getElementsByClassName("modal-wrapper")[0];
   const modalText = document.querySelector(".modal h3");
@@ -118,15 +120,24 @@ const uiManager = ((document, markers) => {
   const resetActivePlayer = () => {
     playerXCaption.classList.add("active-player");
     playerOCaption.classList.remove("active-player");
+
+    playerXScoreMob.parentElement.classList.add("mob-active");
+    playerOScoreMob.parentElement.classList.remove("mob-active");
   };
 
   const updateActivePlayer = (marker) => {
     if (marker === markers.X) {
       playerXCaption.classList.add("active-player");
       playerOCaption.classList.remove("active-player");
+
+      playerXScoreMob.parentElement.classList.add("mob-active");
+      playerOScoreMob.parentElement.classList.remove("mob-active");
     } else {
       playerXCaption.classList.remove("active-player");
       playerOCaption.classList.add("active-player");
+
+      playerXScoreMob.parentElement.classList.remove("mob-active");
+      playerOScoreMob.parentElement.classList.add("mob-active");
     }
   };
 
@@ -179,8 +190,10 @@ const uiManager = ((document, markers) => {
   const updateScore = (marker, score) => {
     if (marker === markers.X) {
       playerXScore.textContent = score;
+      playerXScoreMob.textContent = score;
     } else {
       playerOScore.textContent = score;
+      playerOScoreMob.textContent = score;
     }
   };
 
