@@ -172,6 +172,23 @@ div.x-marker-contain {
   width: 100px;
   height: 100px;
   transform: rotate(45deg);
+  animation: popup-x 0.3s linear;
+}
+
+@keyframes popup-x {
+  from {
+    transform: scale(0.4);
+  }
+
+  50% {
+    transform: scale(1.1);
+    transform: rotate(50deg);
+  }
+
+  to {
+    transform: scale(1);
+    transform: rotate(45deg);
+  }
 }
 
 div.cross {
