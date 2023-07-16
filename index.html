@@ -27,7 +27,19 @@
           </table>
         </div>
         <div class="board-container">
-          <button type="button" class="main-btn" id="main-btn">Restart</button>
+          <div class="top-bar">
+            <div id="player-x-mob" class="mob-score-container mob-active">
+              <span>X</span>
+              <span class="score">0</span>
+            </div>
+            <button type="button" class="main-btn" id="main-btn">
+              Restart
+            </button>
+            <div id="player-y-mob" class="mob-score-container">
+              <span>O</span>
+              <span>1</span>
+            </div>
+          </div>
           <div id="board">
             <div class="cell" data-row="0" data-col="0"></div>
             <div class="cell" data-row="0" data-col="1"></div>
