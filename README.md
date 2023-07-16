@@ -12,3 +12,9 @@ git clone https://github.com/santhanuv/tic-tac-toe.git
 cd tic-tac-toe
 ```
 Open index.html on any browser to play the game.
+
+Alternatively, to play on the console, use the console branch:
+```
+git checkout console
+```
+Then open the index.html file on any browser and the console to play.
